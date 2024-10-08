@@ -19,3 +19,9 @@
 ```bash
     use bookstore
 ```
+
+### show all collections/table
+
+```bash
+    show collections
+```
