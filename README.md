@@ -64,9 +64,6 @@
     // get 20 data
     db.books.find()
     db.books.find({author: "Terry"})
-```
-
-```bash
     db.books.find({author: "Nasim Uddin", rating: 7})
 ```
 
@@ -127,6 +124,6 @@ Take only title and author
     db.books.find({genres: ["fantasy"]})
     // take all element where include fantasy
     db.books.find({genres: {$all: ["fantasy"]}})
-    // find review array name value
+    # find review array name value
     db.books.find({"reviews.name": "Yoshi"})
 ```
