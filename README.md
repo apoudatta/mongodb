@@ -2,37 +2,37 @@
 
 ## command
 
-### Connect mongo server
+#### Connect mongo server
 
 ```bash
     mongosh
 ```
 
-### Show all DB
+#### Show all DB
 
 ```bash
     show dbs
 ```
 
-### Use a DB
+#### Use a DB
 
 ```bash
     use bookstore
 ```
 
-### show all collections/table
+#### show all collections/table
 
 ```bash
     show collections
 ```
 
-### Go to a collections
+#### Go to a collections
 
 ```bash
     db.books
 ```
 
-### Insert one
+#### Insert one
 
 ```bash
     db.books.insertOne(
@@ -46,13 +46,13 @@
     )
 ```
 
-### Insert new collections
+#### Insert new collections
 
 ```bash
 db.authors.insertOne({ name: "Brandon Sanderson", age: 60 })
 ```
 
-### Insert multiple data
+#### Insert multiple data
 
 ```bash
 db.books.insertMany([{title: "The Light", author: "Terry", pages: 250, rating: 6, genres:["fantasy"]},{title: "Dune", author: "Frank", pages: 500, rating: 10, genres:["sci-fi", "dystopian"]}])
