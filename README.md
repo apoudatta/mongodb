@@ -49,17 +49,84 @@
 #### Insert new collections
 
 ```bash
-db.authors.insertOne({ name: "Brandon Sanderson", age: 60 })
+    db.authors.insertOne({ name: "Brandon Sanderson", age: 60 })
 ```
 
 #### Insert multiple data
 
 ```bash
-db.books.insertMany([{title: "The Light", author: "Terry", pages: 250, rating: 6, genres:["fantasy"]},{title: "Dune", author: "Frank", pages: 500, rating: 10, genres:["sci-fi", "dystopian"]}])
+    db.books.insertMany([{title: "The Light", author: "Terry", pages: 250, rating: 6, genres:["fantasy"]},{title: "Dune", author: "Frank", pages: 500, rating: 10, genres:["sci-fi", "dystopian"]}])
 ```
 
 #### Find data from a collection
 
 ```bash
- db.books.find({author: "Terry"})
+    // get 20 data
+    db.books.find()
+    db.books.find({author: "Terry"})
+```
+
+```bash
+    db.books.find({author: "Nasim Uddin", rating: 7})
+```
+
+Take only title and author
+
+```bash
+    db.books.find({author: "Nasim Uddin", rating: 7}, {title: 1, author: 1})
+    db.books.find({}, {title: 1, author: 1})
+```
+
+#### Find single item
+
+```bash
+    db.books.findOne({_id: ObjectId('6704e3a99cd6771c3bc73bf8')})
+```
+
+#### Count, Limit, Sorting(1:asc, -1:desc)
+
+```bash
+    db.books.find().count()
+    db.books.find({ author: "Nasim Uddin" }).count()
+    db.books.find().limit(3)
+    db.books.find().sort({ title: 1 })
+    db.books.find().sort({ title: -1 }).limit(3)
+```
+
+#### Nested Documents
+
+```bash
+    db.books.insertOne({ title: "The Way of Kings", author: "Brandon Sanderson", rating: 9, pages: 400, genres: ["fantasy"], reviews: [{name: "Yoshi", body: "Great book!"},{name: "mario", body: "so so"}] })
+```
+
+#### Operators & Complex Queries
+
+```bash
+    // get document greater then 7
+    db.books.find({ rating: {$gt: 7}})
+    // get document less then 7
+    db.books.find({ rating: {$lt: 7}})
+    // get document less then or equal to 7
+    db.books.find({ rating: {$lte: 9}})
+    // get document less then or equal to 7 and author "Brandon Sanderson"
+    db.books.find({ rating: {$lte: 9}, author: "Brandon Sanderson"})
+    // or
+    db.books.find({$or: [{ rating: 7}, {author: "Brandon Sanderson"}]})
+    // pages less then 300 or greater then 400
+    db.books.find({$or: [{ pages: {$lt: 300}}, { pages: {$gt: 400}}]})
+    // in
+    db.books.find({rating: {$in: [7,8,9]}})
+    // not in
+    db.books.find({rating: {$nin: [7,8,9]}})
+```
+
+#### Querying Arrays
+
+```bash
+    // take where one array element fantasy
+    db.books.find({genres: ["fantasy"]})
+    // take all element where include fantasy
+    db.books.find({genres: {$all: ["fantasy"]}})
+    // find review array name value
+    db.books.find({"reviews.name": "Yoshi"})
 ```
