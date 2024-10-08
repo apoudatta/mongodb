@@ -61,7 +61,7 @@
 #### Find data from a collection
 
 ```bash
-    // get 20 data
+    # get 20 data
     db.books.find()
     db.books.find({author: "Terry"})
     db.books.find({author: "Nasim Uddin", rating: 7})
@@ -99,30 +99,30 @@ Take only title and author
 #### Operators & Complex Queries
 
 ```bash
-    // get document greater then 7
+    # get document greater then 7
     db.books.find({ rating: {$gt: 7}})
-    // get document less then 7
+    # get document less then 7
     db.books.find({ rating: {$lt: 7}})
-    // get document less then or equal to 7
+    # get document less then or equal to 7
     db.books.find({ rating: {$lte: 9}})
-    // get document less then or equal to 7 and author "Brandon Sanderson"
+    # get document less then or equal to 7 and author "Brandon Sanderson"
     db.books.find({ rating: {$lte: 9}, author: "Brandon Sanderson"})
-    // or
+    # or
     db.books.find({$or: [{ rating: 7}, {author: "Brandon Sanderson"}]})
-    // pages less then 300 or greater then 400
+    # pages less then 300 or greater then 400
     db.books.find({$or: [{ pages: {$lt: 300}}, { pages: {$gt: 400}}]})
-    // in
+    # in
     db.books.find({rating: {$in: [7,8,9]}})
-    // not in
+    # not in
     db.books.find({rating: {$nin: [7,8,9]}})
 ```
 
 #### Querying Arrays
 
 ```bash
-    // take where one array element fantasy
+    # take where one array element fantasy
     db.books.find({genres: ["fantasy"]})
-    // take all element where include fantasy
+    # take all element where include fantasy
     db.books.find({genres: {$all: ["fantasy"]}})
     # find review array name value
     db.books.find({"reviews.name": "Yoshi"})
