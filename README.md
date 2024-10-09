@@ -127,3 +127,42 @@ Take only title and author
     # find review array name value
     db.books.find({"reviews.name": "Yoshi"})
 ```
+
+#### Deleting Documents
+
+```bash
+    db.books.deleteOne({_id: ObjectId('6704cf509a55e91a77d6e825')})
+    db.books.deleteMany({author: 'Nasim Uddin'})
+```
+
+#### Updating Documents
+
+```bash
+    db.books.updateOne({_id: ObjectId('6704ece8d8e2545dd8c73bf8')}, {$set: {rating: 3, pages: 30}})
+    db.books.updateMany({author: 'Nasim Uddin'}, {$set: { author: 'Nasim' }})
+    # Increment value
+    db.books.updateOne({_id: ObjectId('6704ece8d8e2545dd8c73bf8')}, {$inc: {pages: 2}})
+    # Decrement value
+    db.books.updateOne({_id: ObjectId('6704ece8d8e2545dd8c73bf8')}, {$inc: {pages: -2}})
+    # pull or remove a value array item
+    db.books.updateOne({_id: ObjectId('6704ece8d8e2545dd8c73bf9')}, {$pull: {genres: "dystopian"}})
+    # Push or add a value array item
+    db.books.updateOne({_id: ObjectId('6704ece8d8e2545dd8c73bf9')}, {$push: {genres: "dystopian push"}})
+    #Push or add multiple item into array
+    db.books.updateOne({_id: ObjectId('6704ece8d8e2545dd8c73bf9')}, {$push: {genres: {$each: ["1","2"]}}})
+```
+
+#### Drivers
+
+```bash
+    # Initialize npm
+    npm init
+    # install Express
+    npm install express --save
+    # install nodemon
+    npm install -g nodemon
+    # install mongodb driver
+    npm install mongodb@6.9
+    # run nodemon
+    nodemon app
+```
