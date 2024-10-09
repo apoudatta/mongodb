@@ -169,10 +169,12 @@ Take only title and author
 
 ### APIs
 
-Get all item
+#### Get all item
+
 GET http://localhost:3000/books?page=2
 
-Insert item
+#### Insert item
+
 POST http://localhost:3000/books
 
 ```bash
@@ -196,3 +198,18 @@ POST http://localhost:3000/books
         ]
     }
 ```
+
+#### Update item
+
+PATCH http://localhost:3000/books/670522eaaae4fbd9ebc73bf8
+
+```bash
+    {
+        "pages": 200,
+        "rating": 8
+    }
+```
+
+#### Delete Item
+
+DELETE http://localhost:3000/books/6704ece8d8e2545dd8c73bf8
