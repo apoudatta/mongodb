@@ -4,6 +4,7 @@ const { connectToDb, getDb } = require('./db')
 
 // init app & middleware
 const app = express()
+app.use(express.json())
 
 // db connection
 let db
@@ -21,11 +22,18 @@ connectToDb((err) => {
  
 // routes
 app.get('/books', (req, res) => {
+    // current page
+    const page = req.query.page || 0
+    const booksPerPage = 3 
+    // http://localhost:3000/books?page=1
+    
     let books = []
 
     db.collection('books')
         .find()
         .sort({ author: 1 })
+        .skip(page * booksPerPage)
+        .limit(booksPerPage)
         .forEach(book => books.push(book))
         .then(() => { 
             res.status(200).json(books)
@@ -49,6 +57,51 @@ app.get('/books/:id', (req, res) => {
     } else { 
         res.status(500).json({error: "Not a valid doc id"})
     }
-    
-    
+})
+
+// routes
+app.post('/books', (req, res) => {
+    const book = req.body
+
+    db.collection('books')
+        .insertOne(book)
+        .then(result => { 
+            res.status(201).json(result)
+        })
+        .catch(err => { 
+            res.status(500).json({error: "Could not create new document"})
+        })
+})
+
+app.delete('/books/:id', (req, res) => { 
+
+    if (ObjectId.isValid(req.params.id)) {  // check id is valid
+        db.collection('books')
+            .deleteOne({ _id: new ObjectId(req.params.id) })
+            .then(result => {
+                res.status(200).json(result)
+            })
+            .catch(err => {
+                res.status(500).json({ error: 'Could not delete the document' })
+            })
+    } else { 
+        res.status(500).json({error: "Not a valid doc id"})
+    }
+})
+
+app.patch('/books/:id', (req, res) => {
+    const updates = req.body
+
+     if (ObjectId.isValid(req.params.id)) {  // check id is valid
+        db.collection('books')
+            .updateOne({ _id: new ObjectId(req.params.id)}, {$set: updates })
+            .then(result => {
+                res.status(200).json(result)
+            })
+            .catch(err => {
+                res.status(500).json({ error: 'Could not update the document' })
+            })
+    } else { 
+        res.status(500).json({error: "Not a valid doc id"})
+    }
 })

@@ -166,3 +166,33 @@ Take only title and author
     # run nodemon
     nodemon app
 ```
+
+### APIs
+
+Get all item
+GET http://localhost:3000/books?page=2
+
+Insert item
+POST http://localhost:3000/books
+
+```bash
+    {
+        "title": "The Final Empire",
+        "author": "Brandon Sanderson",
+        "rating": 9,
+        "pages": 420,
+        "genres": [
+            "fantasy",
+            "magic"
+        ],
+        "reviews": [
+            {
+                "name": "Shaun",
+                "body": "Coudn't put this book down."
+            },{
+                "name": "Chun-Li",
+                "body": "Love it."
+            }
+        ]
+    }
+```
